@@ -1,3 +1,4 @@
+// ==UserScript==
 // @name         YouTube - Auto Dark Mode
 // @namespace    http://yournamespace.com/
 // @version      0.1
@@ -12,7 +13,11 @@
 "use strict";
 var c = document.cookie;
 
-// If there's no PREF cookie, then create one with a value that enables the Dark Theme
-if (!c || !c.match("^PREF=|; ?PREF=")) {
+var pref = c.split(";").find((item) => item.includes("PREF"));
+var value = pref.split("=").splice(1).join("=");
+var prefValue = value.split(" ")[0];
+
+// Set dark mode if not set
+if (!prefValue.match(/f6=\d+/)) {
   document.cookie = "PREF=f6=400;domain=youtube.com";
 }
