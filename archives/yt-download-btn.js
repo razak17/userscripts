@@ -27,7 +27,7 @@
     downloadLink.setAttribute("target", "_blank");
     downloadLink.innerText = "VIDEO";
     downloadLink.style.display = "block";
-    downloadLink.style.marginLeft = "5px";
+    downloadLink.style.marginTop = "5px";
     downloadLink.style.background = "#303030";
     downloadLink.style.color = "#a9a9a9";
     downloadLink.style.width = "6rem";
@@ -39,17 +39,9 @@
     downloadLink.style.textDecoration = "none";
 
     let parentDiv = document.querySelector("ytd-subscribe-button-renderer");
-    let parentDivAlt = document.querySelector(
-      "ytd-video-secondary-info-renderer",
-    );
     if (parentDiv) {
-      // parentDiv.parentElement.insertBefore(downloadLink, parentDiv.nextSibling);
-      parentDiv.appendChild(downloadLink);
-    } else if (parentDivAlt) {
-      parentDivAlt.parentElement.insertBefore(
-        downloadLink,
-        parentDivAlt.nextSibling,
-      );
+      parentDiv.parentElement.insertBefore(downloadLink, parentDiv.nextSibling);
+      // parentDiv.appendChild(downloadLink);
     }
   }
 
