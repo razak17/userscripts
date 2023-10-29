@@ -13,28 +13,36 @@
 // @version      0.1
 // ==/UserScript==
 
-const buttons = ["MP3", "MP4", "THUMBNAIL", "PIPED"];
-
 const youtubeLinks = [
   {
     url: "https://ytmp3x.com/",
     title: "Download MP3 from Video",
     param: "videoId",
+    type: "MP3",
   },
   {
     url: "https://www.y2mate.com/youtube/",
     title: "Download Video as MP4",
     param: "videoId",
+    type: "MP4",
   },
   {
     url: "https://10downloader.com/download?v=",
     title: "Download Thumbnail from Video",
     param: "url",
+    type: "THUMBNAIL",
   },
   {
     url: "https://piped.video/watch?v=",
     title: "Watch Video on Piped",
     param: "videoId",
+    type: "PIPED",
+  },
+  {
+    url: "https://invidious.flokinet.to/watch?v=",
+    title: "Watch Video on Invidious",
+    param: "videoId",
+    type: "INVIDIOUS",
   },
 ];
 
@@ -43,11 +51,13 @@ const shortsLinks = [
     url: "https://ytmp3x.com/",
     title: "Download MP3 from short",
     param: "videoId",
+    type: "MP3",
   },
   {
     url: "https://www.y2mate.com/youtube/",
     title: "Download MP4 from short",
     param: "videoId",
+    type: "MP4",
   },
 ];
 
@@ -177,7 +187,7 @@ const cssText = `
 
               const buttonText = document.createElement("span");
               buttonText.classList.add("download-button-text");
-              buttonText.innerHTML = buttons[i];
+              buttonText.innerHTML = shortsLinks[i].type;
               button.appendChild(buttonText);
               button.title = shortsLinks[i].title;
               container.appendChild(button);
@@ -188,7 +198,7 @@ const cssText = `
             const videoId = new URL(window.location.href).searchParams.get("v");
             const url = window.location.href;
 
-            for (let i = 0; i < buttons.length; i++) {
+            for (let i = 0; i < youtubeLinks.length; i++) {
               const button = document.createElement("div");
               button.classList.add("download-button");
               if (inPlaylist) {
@@ -210,7 +220,7 @@ const cssText = `
               if (inPlaylist) {
                 buttonText.classList.add("download-playlist-button-text");
               }
-              buttonText.innerHTML = buttons[i];
+              buttonText.innerHTML = youtubeLinks[i].type;
               button.appendChild(buttonText);
               button.title = youtubeLinks[i].title;
               container.appendChild(button);

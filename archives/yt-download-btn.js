@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // ==UserScript==
 // @name         YouTube - Download Video
 // @namespace    http://yournamespace.com/
@@ -14,6 +15,7 @@
   "use strict";
 
   function addDownloadButton() {
+    // eslint-disable-next-line max-len
     if (document.getElementById("downloadBtn")) return; // If button already exists, exit the function
 
     let downloadLink = document.createElement("a");
