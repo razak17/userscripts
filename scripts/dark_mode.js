@@ -6,6 +6,7 @@
 // @author       You
 // @match        *://*.kulala.mwco.app/*
 // @match        *://*.folke.io/*
+// @match        *://*.lintao-index.pages.dev/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // ==/UserScript==
