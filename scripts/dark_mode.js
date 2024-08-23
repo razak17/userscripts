@@ -7,19 +7,38 @@
 // @match        *://*.kulala.mwco.app/*
 // @match        *://*.folke.io/*
 // @match        *://*.lintao-index.pages.dev/*
+// @match        *://*.app.simplelogin.io/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // ==/UserScript==
 
-(function() {
-  'use strict';
+(function () {
+  "use strict";
 
-  const theme = localStorage.getItem('theme');
+  const url = window.location.href;
 
-  if (!theme || theme !== 'dark') {
-    localStorage.setItem('theme', 'dark');
-    window.location.reload();
+  if (url.includes("app.simplelogin.io")) {
+    const cookie = document.cookie;
+    let darkModeCookie = cookie
+      .split("; ")
+      .find((item) => item.startsWith("dark-mode="));
+
+    if (!darkModeCookie) {
+      document.cookie = "dark-mode=true;domain=app.simplelogin.io";
+      darkModeCookie = "dark-mode=true";
+    }
+
+    const darkModeValue = darkModeCookie.split("=")[1];
+
+    if (darkModeValue !== "true") {
+      document.cookie = "dark-mode=true;domain=app.simplelogin.io";
+    }
   }
 
-  // Your code here...
+  const theme = localStorage.getItem("theme");
+
+  if (theme !== "dark") {
+    localStorage.setItem("theme", "dark");
+    window.location.reload();
+  }
 })();
