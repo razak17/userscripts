@@ -15,16 +15,22 @@
 
 const youtubeLinks = [
   {
-    url: "https://ytmp3x.com/",
-    title: "Download MP3 from Video",
+    url: "https://yt1s.com/youtube-to-mp3?q=",
+    title: "Multi Download",
     param: "videoId",
-    type: "MP3",
+    type: "MP4",
   },
   {
     url: "https://www.y2mate.com/youtube/",
     title: "Download Video as MP4",
     param: "videoId",
     type: "MP4",
+  },
+  {
+    url: "https://ytmp3x.com/",
+    title: "Download MP3 from Video",
+    param: "videoId",
+    type: "MP3",
   },
   {
     url: "https://10downloader.com/download?v=",
@@ -67,16 +73,18 @@ const cssText = `
         display: flex;
         flex-direction: row;
         cursor: pointer;
-        background-color: #303030;
-        color: #d9d9d9;
-        padding: var(--yt-button-padding);
+        background-color: transparent;
+        color: #f1f1f1;
         margin: auto var(--ytd-subscribe-button-margin, 4px);
         white-space: nowrap;
         max-height: 36px;
-        font-size: var(--ytd-tab-system-font-size, 1.2rem);
+        padding: 0 16px;
+        line-height: 36px;
+        font-size: var(--ytd-tab-system-font-size, 14px);
         font-weight: var(--ytd-tab-system-font-weight, 500);
         letter-spacing: var(--ytd-tab-system-letter-spacing, .007px);
         text-transform: var(--ytd-tab-system-text-transform, uppercase);
+        position: relative;
     }
     .download-button-text {
         --yt-formatted-string-deemphasize_-_display: initial;
@@ -86,10 +94,12 @@ const cssText = `
     .download-button-container {
         display: flex;
         flex-direction: row;
+        position: relative;
     }
     .download-button-container-shorts {
         display: flex;
         flex-direction: column;
+        position: relative;
     }
     .download-playlist-button {
         margin-right: 8px;
@@ -105,13 +115,71 @@ const cssText = `
         text-align: center;
         line-height: 48px;
         cursor: pointer;
-        background-color: #303030;
-        color: white;
+        background-color: transparent;
+        color: #f1f1f1;
         white-space: nowrap;
         font-size: 13px;
         font-weight: var(--ytd-tab-system-font-weight, 500);
         letter-spacing: var(--ytd-tab-system-letter-spacing, .007px);
         text-transform: var(--ytd-tab-system-text-transform, uppercase);
+        position: relative;
+    }
+    .download-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #282828;
+        color: var(--yt-spec-text-primary, #f1f1f1);
+        border-radius: 4px;
+        min-width: 280px;
+        z-index: 10000;
+        display: none;
+        box-shadow: 0 4px 32px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.05);
+        backdrop-filter: blur(20px);
+        overflow: hidden;
+        margin-top: 8px;
+        animation: dropdown-fade-in 0.15s cubic-bezier(0.05, 0.7, 0.1, 1.0);
+    }
+    @keyframes dropdown-fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(-8px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    .download-dropdown.show {
+        display: block;
+    }
+    .download-dropdown-item {
+        padding: 14px 20px;
+        color: var(--yt-spec-text-primary, #f1f1f1);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        transition: background-color 0.1s ease;
+        display: flex;
+        align-items: center;
+        position: relative;
+        border-bottom: 1px solid #535353;
+    }
+    .download-dropdown-item:last-child {
+        border-bottom: none;
+    }
+    .download-dropdown-item:hover {
+        background-color: var(--yt-spec-brand-button-text, rgba(255,255,255,0.1));
+    }
+    .download-dropdown-item:active {
+        background-color: var(--yt-spec-brand-button-text, rgba(255,255,255,0.2));
+    }
+    .download-dropdown-shorts {
+        top: 0;
+        left: 100%;
+        margin-left: 12px;
+        min-width: 240px;
     }
 `;
 
@@ -140,7 +208,8 @@ const cssText = `
         document.head.appendChild(style);
 
         // check for playlist and create appropriate query
-        let query = "#analytics-button:not(.download-panel)";
+        let query = "#owner:not(.download-panel)";
+        // let query = "#analytics-button:not(.download-panel)";
 
         let inPlaylist = location.href.includes("/playlist");
         if (inPlaylist && !playlistButtonsAdded) {
@@ -161,74 +230,119 @@ const cssText = `
             container.classList.add("download-button-container-shorts");
             container.id = "downloadshorts";
 
+            const button = document.createElement("div");
+            button.classList.add("download-button-shorts");
+
+            const buttonText = document.createElement("span");
+            buttonText.classList.add("download-button-text");
+            buttonText.innerHTML = "DL";
+
+            const arrow = document.createElement("span");
+
+            button.appendChild(buttonText);
+            button.appendChild(arrow);
+            button.title = "Download Options";
+
+            const dropdown = document.createElement("div");
+            dropdown.classList.add(
+              "download-dropdown",
+              "download-dropdown-shorts",
+            );
+
+            let url = window.location.toString();
+            let videoId = url.split("/").pop();
+
             for (let i = 0; i < shortsLinks.length; i++) {
-              const button = document.createElement("div");
-              button.classList.add("download-button-shorts");
+              const dropdownItem = document.createElement("div");
+              dropdownItem.classList.add("download-dropdown-item");
+              dropdownItem.innerHTML = shortsLinks[i].title;
 
-              let url = window.location.toString();
-              let videoId = url.split("/").pop();
-
-              button.addEventListener("click", () => {
-                window.open("https://www.y2mate.com/youtube/" + videoId);
-                document.getElementById("download-shorts").disabled = true;
+              dropdownItem.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (shortsLinks[i].param === "videoId") {
+                  window.open(shortsLinks[i].url + videoId);
+                } else if (shortsLinks[i].param === "url") {
+                  window.open(shortsLinks[i].url + url);
+                }
+                dropdown.classList.remove("show");
               });
 
-              if (shortsLinks[i].param === "videoId") {
-                button.addEventListener("click", () => {
-                  window.open(shortsLinks[i].url + videoId);
-                  document.getElementById("download-shorts").disabled = true;
-                });
-              } else if (shortsLinks[i].param === "url") {
-                button.addEventListener("click", () => {
-                  window.open(shortsLinks[i].url + url);
-                  document.getElementById("download-shorts").disabled = true;
-                });
-              }
-
-              const buttonText = document.createElement("span");
-              buttonText.classList.add("download-button-text");
-              buttonText.innerHTML = shortsLinks[i].type;
-              button.appendChild(buttonText);
-              button.title = shortsLinks[i].title;
-              container.appendChild(button);
+              dropdown.appendChild(dropdownItem);
             }
+
+            button.addEventListener("click", (e) => {
+              e.stopPropagation();
+              dropdown.classList.toggle("show");
+            });
+
+            button.appendChild(dropdown);
+            container.appendChild(button);
           } else {
             container.classList.add("download-button-container");
 
             const videoId = new URL(window.location.href).searchParams.get("v");
             const url = window.location.href;
 
-            for (let i = 0; i < youtubeLinks.length; i++) {
-              const button = document.createElement("div");
-              button.classList.add("download-button");
-              if (inPlaylist) {
-                button.classList.add("download-playlist-button");
-              }
-
-              if (youtubeLinks[i].param === "videoId") {
-                button.addEventListener("click", () => {
-                  window.open(youtubeLinks[i].url + videoId);
-                });
-              } else if (youtubeLinks[i].param === "url") {
-                button.addEventListener("click", () => {
-                  window.open(youtubeLinks[i].url + url);
-                });
-              }
-
-              const buttonText = document.createElement("span");
-              buttonText.classList.add("download-button-text");
-              if (inPlaylist) {
-                buttonText.classList.add("download-playlist-button-text");
-              }
-              buttonText.innerHTML = youtubeLinks[i].type;
-              button.appendChild(buttonText);
-              button.title = youtubeLinks[i].title;
-              container.appendChild(button);
+            const button = document.createElement("div");
+            button.classList.add("download-button");
+            if (inPlaylist) {
+              button.classList.add("download-playlist-button");
             }
+
+            const buttonText = document.createElement("span");
+            buttonText.classList.add("download-button-text");
+            if (inPlaylist) {
+              buttonText.classList.add("download-playlist-button-text");
+            }
+            buttonText.innerHTML = "DOWNLOAD";
+
+            const arrow = document.createElement("span");
+
+            button.appendChild(buttonText);
+            button.appendChild(arrow);
+            button.title = "Download & Watch Options";
+
+            const dropdown = document.createElement("div");
+            dropdown.classList.add("download-dropdown");
+
+            for (let i = 0; i < youtubeLinks.length; i++) {
+              const dropdownItem = document.createElement("div");
+              dropdownItem.classList.add("download-dropdown-item");
+              dropdownItem.innerHTML = youtubeLinks[i].title;
+
+              dropdownItem.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (youtubeLinks[i].param === "videoId") {
+                  window.open(youtubeLinks[i].url + videoId);
+                } else if (youtubeLinks[i].param === "url") {
+                  window.open(youtubeLinks[i].url + url);
+                }
+                dropdown.classList.remove("show");
+              });
+
+              dropdown.appendChild(dropdownItem);
+            }
+
+            button.addEventListener("click", (e) => {
+              e.stopPropagation();
+              dropdown.classList.toggle("show");
+            });
+
+            button.appendChild(dropdown);
+            container.appendChild(button);
           }
 
           panel.classList.add("download-panel");
-          panel.insertBefore(container, panel.firstElementChild);
+          panel.appendChild(container, panel.firstElementChild);
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", () => {
+          document
+            .querySelectorAll(".download-dropdown")
+            .forEach((dropdown) => {
+              dropdown.classList.remove("show");
+            });
         });
       }, 200);
     });
