@@ -15,6 +15,12 @@
 
 const youtubeLinks = [
   {
+    url: "https://addyoutube.com/watch?v=",
+    title: "HD Quality Options",
+    param: "videoId",
+    type: "MP4",
+  },
+  {
     url: "https://yt1s.com/youtube-to-mp3?q=",
     title: "Multi Download",
     param: "videoId",
