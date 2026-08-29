@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 // ==UserScript==
 // @name         YouTube Downloader - MP3, MP4, Thumbnail + Watch on Piped
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/razak17/userscripts
 // @description  Adds a button to download YouTube videos as MP3, MP4, Thumbnail, or Watch on Piped (YouTube without distractions)
 // @author       You
 // @match        https://www.youtube.com/watch?v=*

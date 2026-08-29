@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube - Auto Dark Mode
-// @namespace    http://yournamespace.com/
+// @namespace    https://github.com/razak17/userscripts
 // @version      0.1
 // @description  Dark Mode for YouTube
 // @author       You

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Dark Mode for various sites
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/razak17/userscripts
 // @version      2024-07-18
 // @description  try to take over the world!
 // @author       You

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Add Direct link to GitHub plugins
-// @namespace    https://dotfyle.com
+// @namespace    https://github.com/razak17/userscripts
 // @version      2025-10-13
 // @description  Discover and share Neovim plugins
 // @author       razak17
