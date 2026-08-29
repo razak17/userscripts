@@ -5,7 +5,10 @@
 // @description  try to take over the world!
 // @author       You
 // @match        *://*.reddit.com/*
+// @homepageURL  https://github.com/razak17/userscripts
+// @supportURL   https://github.com/razak17/userscripts/issues
 // @icon         https://www.redditstatic.com/desktop2x/img/favicon/favicon-96x96.png
+
 // @grant        none
 // ==/UserScript==
 

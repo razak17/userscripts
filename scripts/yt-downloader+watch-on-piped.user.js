@@ -7,6 +7,8 @@
 // @author       You
 // @match        https://www.youtube.com/watch?v=*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @homepageURL  https://github.com/razak17/userscripts
+// @supportURL   https://github.com/razak17/userscripts/issues
 // @grant        none
 // @license      MIT
 // @run-at       document-end

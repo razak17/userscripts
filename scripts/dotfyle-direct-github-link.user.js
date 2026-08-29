@@ -6,6 +6,8 @@
 // @author       razak17
 // @match        http://*.dotfyle.com/neovim/plugins/*
 // @match        https://*.dotfyle.com/neovim/plugins/*
+// @homepageURL  https://github.com/razak17/userscripts
+// @supportURL   https://github.com/razak17/userscripts/issues
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // ==/UserScript==

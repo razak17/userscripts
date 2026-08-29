@@ -8,6 +8,8 @@
 // @match        *://*.folke.io/*
 // @match        *://*.lintao-index.pages.dev/*
 // @match        *://*.app.simplelogin.io/*
+// @homepageURL  https://github.com/razak17/userscripts
+// @supportURL   https://github.com/razak17/userscripts/issues
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // ==/UserScript==

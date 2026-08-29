@@ -5,6 +5,8 @@
 // @description  Dark Mode for YouTube
 // @author       You
 // @match       *://*.youtube.com/*
+// @homepageURL  https://github.com/razak17/userscripts
+// @supportURL   https://github.com/razak17/userscripts/issues
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @grant        none
 // @license      MIT
